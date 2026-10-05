@@ -1,0 +1,79 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout supplement
+        uses: actions/checkout@v4
+
+      - name: Checkout shared theme
+        uses: actions/checkout@v4
+        with:
+          repository: IHE/DEV.tooling
+          path: .tooling
+          sparse-checkout: theme
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Install Asciidoctor
+        run: |
+          gem install asciidoctor asciidoctor-pdf
+
+      - name: Prepare theme
+        run: |
+          mkdir -p output
+
+          # Combine base CSS + per-repo CSS (cascading, not replacing)
+          cat .tooling/theme/ihe-base.css > output/combined.css
+          if [ -f AsciiDoc_Source/theme/custom.css ]; then
+            echo "" >> output/combined.css
+            echo "/* === Per-repo custom styles === */" >> output/combined.css
+            cat AsciiDoc_Source/theme/custom.css >> output/combined.css
+          fi
+
+          # Copy base PDF theme where asciidoctor-pdf can find it
+          cp .tooling/theme/ihe-base-theme.yml output/ihe-base-theme.yml
+
+      - name: Build HTML
+        run: |
+          asciidoctor \
+            -b html5 \
+            -a stylesheet=../output/combined.css \
+            -a linkcss \
+            -D output \
+            -o index.html \
+            AsciiDoc_Source/main.adoc
+
+      - name: Build PDF
+        run: |
+          asciidoctor-pdf \
+            -a pdf-theme=output/ihe-base-theme.yml \
+            -D output \
+            -o supplement.pdf \
+            AsciiDoc_Source/main.adoc
+
+      - name: Clean up build files
+        run: |
+          # Remove intermediate files from the artifact
+          rm -f output/ihe-base-theme.yml
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: supplement-output
+          path: output/
+          retention-days: 90

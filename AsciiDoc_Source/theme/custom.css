@@ -1,0 +1,18 @@
+/*
+ * Per-repo custom stylesheet
+ *
+ * This file is for styling specific to THIS supplement only.
+ * It is applied AFTER the shared IHE base stylesheet from DEV.tooling,
+ * so anything you add here cascades on top of the base styles.
+ *
+ * Use this for things like:
+ *   - Custom colors for a specific diagram convention
+ *   - Adjustments to table widths for this document's content
+ *   - Any visual tweaks unique to this supplement
+ *
+ * You do NOT need to repeat the base styles here. Only add rules
+ * that are specific to this particular document.
+ *
+ * If this file is empty or contains only comments, it has no effect
+ * and the base theme is used as-is.
+ */

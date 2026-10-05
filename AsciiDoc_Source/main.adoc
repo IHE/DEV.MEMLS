@@ -1,0 +1,38 @@
+= {supplement-title}
+:doctype: book
+
+include::metadata.adoc[]
+
+[discrete]
+== Supplement Information
+
+[cols="1,3"]
+|===
+| *Domain* | {supplement-domain}
+| *Status* | {supplement-status}
+| *Revision* | {supplement-revision}
+| *Date* | {supplement-date}
+| *Editor* | {supplement-editor}
+|===
+
+<<<
+
+== Introduction
+
+// Brief introduction to this supplement. What problem does it solve?
+// What gap in the Technical Framework does it address?
+
+This supplement to the IHE Devices Technical Framework defines...
+
+=== Open Issues and Questions
+
+// Track open issues here during development. Remove this section before Final Text.
+
+. _Example: Should the Device Observer actor be required to support both push and pull?_
+
+=== Closed Issues
+
+// Record resolved issues here for traceability. Remove this section before Final Text.
+
+// None yet.
+
