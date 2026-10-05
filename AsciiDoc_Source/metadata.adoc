@@ -1,11 +1,11 @@
 // Supplement metadata — update these attributes for your supplement
-:supplement-title: {{SUPPLEMENT_TITLE}}
-:supplement-short: {{SHORT_NAME}}
+:supplement-title: MEMLS
+:supplement-short: MEMLS
 :supplement-status: Draft
 :supplement-revision: 0.1
-:supplement-date: {{DATE}}
+:supplement-date: TODO: set date
 :supplement-domain: IHE Devices (DEV)
-:supplement-editor: {{EDITOR_NAME}}
+:supplement-editor: TODO: set editor
 
 // Standard IHE document attributes
 :toc: left
